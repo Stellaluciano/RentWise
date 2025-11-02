@@ -1,0 +1,146 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f7f7f7;
+}
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Language Switcher Styles */
+.language-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#language-select {
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 0.9rem;
+  color: #2d3748;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+#language-select:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.1);
+}
+
+#language-select:hover {
+  border-color: #3182ce;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+  color: #2d3748;
+  letter-spacing: 2px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1.1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+#search-input:focus {
+  border: 1.5px solid #3182ce;
+}
+
+#map {
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 32px;
+}
+
+.rating-blocks {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.rating-block {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.rating-block h2 {
+  margin: 0 0 16px 0;
+  color: #2d3748;
+  font-size: 1.25rem;
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.star {
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.star.filled {
+  color: #f6ad55;
+}
+
+.rating-block p {
+  margin: 0;
+  color: #4a5568;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.description {
+  margin-bottom: 24px;
+  font-size: 1.1rem;
+  color: #4a5568;
+  text-align: left;
+}
+
+.description strong {
+  font-weight: bold;
+  color: #2d3748;
+}
+
+/* Responsive design for language switcher */
+@media (max-width: 768px) {
+  .language-switcher {
+    position: static;
+    margin-bottom: 20px;
+    align-self: flex-end;
+  }
+  
+  .container {
+    padding: 20px 16px;
+  }
+} 

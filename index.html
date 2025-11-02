@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentWise</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+      <select id="language-select">
+        <option value="en">🇺🇸 English</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+      </select>
+    </div>
+    
+    <h1 data-translate="title">RentWise</h1>
+    <div class="description">
+      <strong data-translate="description-bold">Discover what it's like to rent at any location.</strong><br>
+      <span data-translate="description-text">Type in an address or click directly on the map to explore key insights about safety, accessibility, and lifestyle —— so you can make informed housing decisions with confidence.</span>
+    </div>
+    <input id="search-input" type="text" data-translate-placeholder="search-placeholder" placeholder="Search for an address..." />
+    <div id="map"></div>
+    
+    <div class="rating-blocks">
+      <div class="rating-block">
+        <h2 data-translate="safety">Safety</h2>
+        <div class="stars" id="safety-stars"></div>
+        <p id="safety-description"></p>
+      </div>
+      
+      <div class="rating-block">
+        <h2 data-translate="accessibility">Accessibility</h2>
+        <div class="stars" id="accessibility-stars"></div>
+        <p id="accessibility-description"></p>
+      </div>
+      
+      <div class="rating-block">
+        <h2 data-translate="convenience">Convenience & Lifestyle</h2>
+        <div class="stars" id="convenience-stars"></div>
+        <p id="convenience-description"></p>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCohaBzHar66qZiqxQ9ZhTgAFKPPxDomH0&callback=initMap&libraries=places" async defer></script>
+</body>
+</html> 
