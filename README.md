@@ -1,81 +1,93 @@
 # RentWise
 
-RentWise 是一个面向租房决策的地图应用：输入地址或点击地图，即可获得该位置在 **安全性（Safety）**、**便利性（Accessibility）**、**生活方式（Convenience & Lifestyle）** 三个维度的 AI 评分与简述，帮助租客快速了解区域情况。
+RentWise is a map-based rental decision app. Enter an address or click on the map to get AI-generated ratings and short insights across three dimensions:
 
-> 当前项目为前端 + Cloudflare Pages Functions 的轻量实现，适合做 Demo、课程项目或 MVP 验证。
+- **Safety**
+- **Accessibility**
+- **Convenience & Lifestyle**
 
-## 功能亮点
+This helps renters quickly evaluate neighborhoods and make more confident housing decisions.
 
-- 🗺️ **地图交互**：支持地址搜索与地图点击选点。
-- 🤖 **AI 分析**：通过 OpenAI API 返回三个维度的结构化 JSON 评分（1-5）。
-- 🌐 **多语言界面**：支持英文、简体中文、西班牙语。
-- ⭐ **可视化评分**：将分数渲染为星级，便于快速比较。
+> This project is a lightweight frontend + Cloudflare Pages Functions implementation, ideal for demos, student projects, and MVP validation.
 
-## 技术栈
+## Features
 
-- 前端：HTML / CSS / Vanilla JavaScript
-- 地图服务：Google Maps JavaScript API（含 Places）
-- 后端（Serverless）：Cloudflare Pages Functions
-- AI：OpenAI Chat Completions API
+- 🗺️ **Interactive map**: search by address or click directly on the map.
+- 🤖 **AI analysis**: get structured JSON ratings (1–5) from OpenAI.
+- 🌐 **Multilingual UI**: supports English, Simplified Chinese, and Spanish.
+- ⭐ **Star-based visualization**: convert numeric ratings into easy-to-scan stars.
 
-## 项目结构
+## Tech Stack
+
+- Frontend: HTML / CSS / Vanilla JavaScript
+- Maps: Google Maps JavaScript API (with Places)
+- Backend (serverless): Cloudflare Pages Functions
+- AI: OpenAI Chat Completions API
+
+## Project Structure
 
 ```text
 RentWise/
-├── index.html                 # 页面结构与 Google Maps SDK 引入
-├── style.css                  # 样式
-├── script.js                  # 地图交互、多语言切换、调用分析接口
+├── index.html                 # Page structure and Google Maps SDK script
+├── style.css                  # Styles
+├── script.js                  # Map interaction, i18n switching, API calls
 ├── functions/
 │   └── api/
-│       └── analyze.js         # Cloudflare Function：调用 OpenAI 并返回 JSON
+│       └── analyze.js         # Cloudflare Function that calls OpenAI and returns JSON
 └── README.md
 ```
 
-## 快速开始
+## Quick Start
 
-### 1) 克隆项目
+### 1) Clone the project
 
 ```bash
 git clone <your-repo-url>
 cd RentWise
 ```
 
-### 2) 配置 Google Maps API Key
+### 2) Configure your Google Maps API key
 
-当前 `index.html` 通过 `<script src="https://maps.googleapis.com/maps/api/js?...">` 引入地图 SDK。
-请将其中的 `key` 替换为你自己的 Google Maps API Key，并确保已启用：
+`index.html` loads Google Maps via:
+
+```html
+<script src="https://maps.googleapis.com/maps/api/js?key=...&callback=initMap&libraries=places" async defer></script>
+```
+
+Replace `key` with your own Google Maps API key and make sure these APIs are enabled:
 
 - Maps JavaScript API
 - Places API
 
-### 3) 配置 OpenAI Key（Cloudflare Secret）
+### 3) Configure your OpenAI key (Cloudflare Secret)
 
-`functions/api/analyze.js` 从 `env.OPENAI_API_KEY` 读取密钥。
-在 Cloudflare Pages 项目中添加环境变量（Secret）：
+`functions/api/analyze.js` reads the key from `env.OPENAI_API_KEY`.
+
+In your Cloudflare Pages project, add:
 
 - Key: `OPENAI_API_KEY`
-- Value: 你的 OpenAI API Key
+- Value: your OpenAI API key
 
-如果你本地使用 Wrangler 调试，可通过 Wrangler Secret 命令写入。
+If you run locally with Wrangler, you can also set this as a Wrangler secret.
 
-### 4) 本地运行（推荐 Wrangler）
+### 4) Run locally (recommended: Wrangler)
 
-如果你准备完整联调（含 `functions/`）：
+To test static files + Functions together:
 
 ```bash
 npm install -g wrangler
 wrangler pages dev .
 ```
 
-然后访问命令行输出的本地地址（通常是 `http://127.0.0.1:8788`）。
+Then open the local URL from terminal output (commonly `http://127.0.0.1:8788`).
 
-> 仅打开静态页面也可以看到地图与 UI，但没有 Functions 环境时，`/api/analyze` 不会返回真实 AI 结果。
+> You can still open static files directly and see the UI/map, but `/api/analyze` will not return real AI results without a Functions runtime.
 
-## API 说明
+## API
 
 ### `POST /api/analyze`
 
-请求体示例：
+Request body example:
 
 ```json
 {
@@ -84,7 +96,7 @@ wrangler pages dev .
 }
 ```
 
-返回体（示例）：
+Response example:
 
 ```json
 {
@@ -103,40 +115,40 @@ wrangler pages dev .
 }
 ```
 
-## 部署建议（Cloudflare Pages）
+## Deployment (Cloudflare Pages)
 
-1. 将仓库连接到 Cloudflare Pages。
-2. Build command 可留空（纯静态 + Functions）。
-3. Output directory 设为仓库根目录（`.`）或按你的构建流程设置。
-4. 在 Pages 项目中配置 `OPENAI_API_KEY` Secret。
-5. 触发部署并验证 `/api/analyze` 返回。
+1. Connect this repository to Cloudflare Pages.
+2. Build command can be empty (static files + Functions).
+3. Set output directory to repository root (`.`), or adjust based on your build setup.
+4. Configure the `OPENAI_API_KEY` secret in Pages settings.
+5. Deploy and verify `/api/analyze` is responding correctly.
 
-## 常见问题
+## FAQ
 
-### 1) 为什么地图不显示？
+### 1) Why is the map not showing?
 
-- API Key 无效或配额不足。
-- 未启用 Maps JavaScript API / Places API。
-- Key 的 HTTP Referrer 限制与当前域名不匹配。
+- Invalid API key or quota issues.
+- Missing Maps JavaScript API / Places API enablement.
+- HTTP referrer restrictions do not match your domain.
 
-### 2) 为什么分析接口返回报错？
+### 2) Why does the analysis API fail?
 
-- `OPENAI_API_KEY` 未配置或错误。
-- OpenAI 请求额度不足。
-- 模型偶发返回非 JSON 文本（项目中已做基础容错）。
+- `OPENAI_API_KEY` is missing or incorrect.
+- OpenAI usage limits/quota are exceeded.
+- The model occasionally returns non-JSON output (basic fallback handling is already included).
 
-### 3) 为什么是演示文本而不是实时结果？
+### 3) Why do I only see demo/fallback text?
 
-通常是 `/api/analyze` 不可用、请求失败，或后端环境变量缺失。
+Usually because `/api/analyze` is unavailable, failed, or backend environment variables are not configured.
 
-## 路线图（可选）
+## Roadmap (Optional)
 
-- [ ] 增加历史查询记录与收藏地点
-- [ ] 增加通勤时间（到公司/学校）维度
-- [ ] 增加租金区间与性价比评分
-- [ ] 引入更严格的 JSON schema 校验
-- [ ] 将前端明文地图 Key 改为环境注入方案
+- [ ] Add search history and saved locations
+- [ ] Add commuting-time dimension (to work/school)
+- [ ] Add rental price range and value-for-money scoring
+- [ ] Add stricter JSON schema validation
+- [ ] Replace hardcoded frontend map key with environment-based injection
 
 ## License
 
-可按你的需求补充（例如 MIT）。
+Add your preferred license (for example, MIT).
