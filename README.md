@@ -8,7 +8,7 @@ RentWise is a map-based rental decision app. Enter an address or click on the ma
 
 This helps renters quickly evaluate neighborhoods and make more confident housing decisions.
 
-> This project is a lightweight frontend + Cloudflare Pages Functions implementation, ideal for demos, student projects, and MVP validation.
+A deployed version of RentWise is accessible at https://rentwise.regenerativeaitool.dev/
 
 ## Features
 
