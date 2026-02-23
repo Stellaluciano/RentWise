@@ -23,7 +23,7 @@ const translations = {
     "convenience-demo": "Convenience and lifestyle analysis would be provided here."
   },
   zh: {
-    title: "租房明智",
+    title: "租房智选",
     "description-bold": "发现任何地点的租房体验。",
     "description-text": "输入地址或直接点击地图，探索关于安全性、便利性和生活方式的深度洞察——让您做出明智的住房决策。",
     "search-placeholder": "搜索地址...",
