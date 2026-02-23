@@ -10,8 +10,6 @@ This helps renters quickly evaluate neighborhoods and make more confident housin
 
 A deployed version of RentWise is accessible at https://rentwise.regenerativeaitool.dev/
 
-> This project is a lightweight frontend + Cloudflare Pages Functions implementation, ideal for demos, student projects, and MVP validation.
-
 ## Features
 
 - 🗺️ **Interactive map**: search by address or click directly on the map.

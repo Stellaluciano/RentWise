@@ -161,6 +161,12 @@ async function getLocationAnalysis(address) {
   console.log('Current language:', currentLanguage);
   console.log('Address:', address);
 
+  const fallbackAnalysis = {
+    safety: { rating: 3, description: translations[currentLanguage]['demo-analysis'] },
+    accessibility: { rating: 3, description: translations[currentLanguage]['accessibility-demo'] },
+    convenience: { rating: 3, description: translations[currentLanguage]['convenience-demo'] }
+  };
+
   try {
     const res = await fetch('/api/analyze', {
       method: 'POST',
@@ -172,7 +178,7 @@ async function getLocationAnalysis(address) {
 
     if (data.error) {
       console.error('Server error:', data.error);
-      alert(translations[currentLanguage]['error-getting-analysis']);
+      updateRatings(data.fallback || fallbackAnalysis);
       return;
     }
 
@@ -181,7 +187,7 @@ async function getLocationAnalysis(address) {
     updateRatings(data);
   } catch (err) {
     console.error('Network or JSON error:', err);
-    alert(translations[currentLanguage]['error-getting-analysis']);
+    updateRatings(fallbackAnalysis);
   }
 }
 
