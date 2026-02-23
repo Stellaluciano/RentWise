@@ -23,7 +23,7 @@ const translations = {
     "convenience-demo": "Convenience and lifestyle analysis would be provided here."
   },
   zh: {
-    title: "租房明智",
+    title: "租房智选",
     "description-bold": "发现任何地点的租房体验。",
     "description-text": "输入地址或直接点击地图，探索关于安全性、便利性和生活方式的深度洞察——让您做出明智的住房决策。",
     "search-placeholder": "搜索地址...",
@@ -161,6 +161,12 @@ async function getLocationAnalysis(address) {
   console.log('Current language:', currentLanguage);
   console.log('Address:', address);
 
+  const fallbackAnalysis = {
+    safety: { rating: 3, description: translations[currentLanguage]['demo-analysis'] },
+    accessibility: { rating: 3, description: translations[currentLanguage]['accessibility-demo'] },
+    convenience: { rating: 3, description: translations[currentLanguage]['convenience-demo'] }
+  };
+
   try {
     const res = await fetch('/api/analyze', {
       method: 'POST',
@@ -172,7 +178,7 @@ async function getLocationAnalysis(address) {
 
     if (data.error) {
       console.error('Server error:', data.error);
-      alert(translations[currentLanguage]['error-getting-analysis']);
+      updateRatings(data.fallback || fallbackAnalysis);
       return;
     }
 
@@ -181,7 +187,7 @@ async function getLocationAnalysis(address) {
     updateRatings(data);
   } catch (err) {
     console.error('Network or JSON error:', err);
-    alert(translations[currentLanguage]['error-getting-analysis']);
+    updateRatings(fallbackAnalysis);
   }
 }
 
